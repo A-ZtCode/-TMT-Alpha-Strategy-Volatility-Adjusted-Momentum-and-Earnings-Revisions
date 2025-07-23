@@ -71,4 +71,4 @@ A sweep is performed across different momentum weights (0.0 to 1.0) to find the 
 
 Install with:
 ```bash
-pip install pandas numpy matplotlib seaborn yfinance
+pip install -r requirements.txt
