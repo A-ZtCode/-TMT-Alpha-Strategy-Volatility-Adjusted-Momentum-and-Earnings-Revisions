@@ -1,63 +1,74 @@
-# TMT Alpha Strategy: Volatility-Adjusted Momentum and Earnings Revisions
+# 📊 TMT Alpha Strategy: Volatility-Adjusted Momentum & Earnings Revisions
 
-This project explores a quantitative long/short equity strategy focused on Technology, Media, and Telecommunications (TMT) sector stocks. The model combines **volatility-adjusted momentum** and **earnings revision signals** to generate alpha over a benchmark (XLK ETF).
-
-## Strategy Overview
-
-The notebook implements and evaluates three signal-driven strategies:
-- **Momentum-only strategy** (using 60-day returns)
-- **Earnings revision-only strategy** (using 5-day returns)
-- **Combined strategy** (blended signal of both)
-
-Each strategy ranks stocks daily and forms long/short portfolios from the top and bottom quantiles. Performance is benchmarked against the XLK ETF.
-
-## Key Features
-
-- **Universe**: TMT stocks (e.g., AAPL, MSFT, AMZN, GOOG, META, etc.)
-- **Signal Construction**:
-  - *Momentum*: Past 60-day return
-  - *Revisions*: Short-term (5-day) return to simulate analyst sentiment changes
-- **Volatility Adjustment**: Returns scaled by standard deviation to improve signal stability
-- **Portfolio Formation**:
-  - Daily ranking into quantiles
-  - Long top quantile, short bottom quantile
-- **Backtest Period**: Jan 2022 – Dec 2024
-- **Performance Metrics**:
-  - Sharpe Ratio
-  - Max Drawdown
-  - Cumulative Return
-
-## Final Results
-
-| Strategy        | Sharpe Ratio | Max Drawdown |
-|----------------|--------------|---------------|
-| Momentum-only  | 0.17         | -44.87%       |
-| Revision-only  | -0.40        | -65.61%       |
-| Combined       | -0.40        | -65.61%       |
-| XLK (Benchmark)| 0.54         | -32.42%       |
-
-> Note: While the revision and combined strategies underperformed, the momentum-only strategy showed positive alpha and lower volatility than XLK during the period.
-
-## Tools & Libraries
-
-- Python, pandas, numpy
-- yfinance (for data)
-- matplotlib, seaborn (visualisation)
-
-## Files
-
-- `TMT_Alpha_Strategy.ipynb` — Main notebook with strategy logic, simulation, and evaluation
-- `README.md` — Project description and methodology
-
-## Future Enhancements
-
-- Introduce sector-neutral or market-neutral weighting
-- Use real earnings forecast changes instead of short-term returns
-- Add transaction cost simulation
-- Explore machine learning for signal blending
+This project explores a quantitative long/short equity strategy focused on the **Technology, Media, and Telecom (TMT)** sector. The approach combines **volatility-adjusted momentum** with simulated **earnings revision signals** to generate alpha. The strategy is benchmarked against the **XLK ETF** (representing large-cap tech performance).
 
 ---
 
-## About
+## 📈 Strategy Overview
 
-This project was built to develop and evaluate systematic alpha strategies within a clearly defined equity universe. It can serve as a template for further quantitative research or interview demonstrations.
+This notebook simulates and compares the performance of three strategies:
+
+1. **Momentum-only strategy**
+2. **Earnings revision-only strategy**
+3. **Combined strategy** (weighted blend of momentum and revision signals)
+
+The goal is to determine whether blending these signals yields better risk-adjusted returns compared to using either signal alone or the XLK ETF benchmark.
+
+---
+
+## 🧠 Methodology
+
+### 1. **Universe Selection**
+- TMT sector tickers used: `['AAPL', 'MSFT', 'GOOG', 'META', 'NFLX', 'AMZN', 'DIS', 'CRM', 'ADBE', 'VZ']`
+- Daily adjusted close prices pulled via `yfinance`
+
+### 2. **Signal Construction**
+- **Momentum**: Based on recent price performance (5-day returns)
+- **Earnings Revisions (simulated)**: Also based on 5-day returns (used as a proxy for analyst activity)
+
+Each signal is ranked daily, and stocks are assigned to quantiles (Q0 = top 20%, Q4 = bottom 20%).
+
+### 3. **Strategy Logic**
+- **Long** top quantile
+- **Short** bottom quantile
+- Positions are rebalanced daily
+
+### 4. **Combined Signal**
+- Weighted blend:  
+  `combined_score = momentum_weight * momentum_score + (1 - momentum_weight) * revision_score`
+
+A sweep is performed across different momentum weights (0.0 to 1.0) to find the optimal blend.
+
+---
+
+## 📊 Results Summary
+
+| Strategy           | Sharpe Ratio | Max Drawdown |
+|--------------------|--------------|----------------|
+| Momentum-only      | 0.17         | -44.87%         |
+| Revision-only      | -0.40        | -65.61%         |
+| Combined           | -0.40        | -65.61%         |
+| XLK ETF (Benchmark)| 0.54         | -32.42%         |
+
+🔎 **Insight**: The momentum-only strategy performed best among the three. The combined and revision-only strategies underperformed the benchmark, possibly due to signal redundancy or market inefficiency.
+
+---
+
+## 📁 Files
+
+- `TMT_Alpha_Strategy.ipynb` – main notebook with complete implementation
+- `README.md` – project overview
+
+---
+
+## 📌 Dependencies
+
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+- `yfinance`
+
+Install with:
+```bash
+pip install pandas numpy matplotlib seaborn yfinance
