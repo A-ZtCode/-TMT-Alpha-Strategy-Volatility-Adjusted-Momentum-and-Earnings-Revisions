@@ -1,0 +1,1 @@
+# -TMT-Alpha-Strategy-Volatility-Adjusted-Momentum-and-Earnings-Revisions
