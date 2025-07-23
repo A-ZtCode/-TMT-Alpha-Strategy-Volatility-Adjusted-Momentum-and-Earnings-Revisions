@@ -23,7 +23,7 @@ The goal is to determine whether blending these signals yields better risk-adjus
 - Daily adjusted close prices pulled via `yfinance`
 
 ### 2. **Signal Construction**
-- **Momentum**: Based on recent price performance (5-day returns)
+- **Momentum**: Based on recent price performance (5-day returns, then 20-day returns)
 - **Earnings Revisions (simulated)**: Also based on 5-day returns (used as a proxy for analyst activity)
 
 Each signal is ranked daily, and stocks are assigned to quantiles (Q0 = top 20%, Q4 = bottom 20%).
